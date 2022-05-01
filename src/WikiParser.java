@@ -27,7 +27,7 @@ public class WikiParser {
         }
     }
 
-    public Map<String, String> getSenatorsToYear() {
+    public void initHashMaps() {
         Elements articleElements = this.currentDoc.select("table[class*=wikitable sortable]");
         Elements rows = articleElements.select("tbody");
         Elements senateAttr = rows.select("td");
@@ -49,20 +49,47 @@ public class WikiParser {
                 }
             }
         }
-        System.out.println(yearToSenator);
+    }
+
+    public Map<String, String> getSenatorsToYears() {
         return senatorsToYear;
+    }
+
+    public Map<String, List<String>> getYearToSenator() {
+        return yearToSenator;
     }
 
     private void putInHashMaps(String currYear, String currSenator) {
         String[] str = currYear.split(" ");
-        senatorsToYear.put(currSenator, str[2]);
+        String newName;
+        if (currSenator.contains("Jr., ")) {
+            currSenator = currSenator.replace("Jr., ", "");
+        }
+        if (currSenator.contains("Dick")) {
+            currSenator = currSenator.replace("Dick", "Richard");
+        }
+        if (currSenator.contains("Bob")) {
+            currSenator = currSenator.replace("Bob", "Robert");
+        }
+        newName = currSenator.split(" ")[0] + " " +
+                currSenator.split(" ")[1].charAt(0);
+        if (newName.contains("Masto")) {
+            newName = "Cortez Masto, C";
+        }
+        if (newName.contains("Van H")) {
+            newName = "Van Hollen, C";
+        }
+        if (newName.contains("Harris") || newName.contains("Loeffler")) {
+            return;
+        }
+        senatorsToYear.put(newName, str[2]);
         if (yearToSenator.containsKey(str[2])) {
-            containsSenator(yearToSenator, currSenator);
-            yearToSenator.get(str[2]).add(currSenator);
+            containsSenator(yearToSenator, newName);
+            yearToSenator.get(str[2]).add(newName);
         } else {
-            containsSenator(yearToSenator, currSenator);
+            containsSenator(yearToSenator, newName);
             List<String> list = new ArrayList<>();
-            list.add(currSenator);
+            list.add(newName);
             yearToSenator.put(str[2], list);
         }
     }
