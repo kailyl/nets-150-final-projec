@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,19 @@ public class WikiParserMain {
         Map<String, List<String>> dateToSenate = parse.getYearToSenator();
         for (String key : dateToSenate.keySet()) {
             System.out.println(key + ": " + dateToSenate.get(key));
+        }
+
+        CommParser parser = new CommParser();
+        //Map<String, List<String>> map = parser.getSenToColleagues();
+        //System.out.print(map);
+
+        parser.getSenatorList();
+        parser.getCommURLs();
+//        parser.getCommMembers("Committee on the Judiciary");
+
+        Map<String, List<String>> sen = parser.getSenToCommMembs();
+        for (String key : sen.keySet()) {
+            System.out.println(key + ": " + sen.get(key));
         }
     }
 }
