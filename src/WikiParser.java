@@ -71,6 +71,9 @@ public class WikiParser {
         if (currSenator.contains("Bob")) {
             currSenator = currSenator.replace("Bob", "Robert");
         }
+        if (currSenator.contains("Luján")) {
+            currSenator = currSenator.replace("Luján", "Lujan");
+        }
         newName = currSenator.split(" ")[0] + " " +
                 currSenator.split(" ")[1].charAt(0);
         if (newName.contains("Masto")) {
