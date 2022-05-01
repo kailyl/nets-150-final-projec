@@ -1,6 +1,6 @@
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class WikiParserMain {
 
@@ -28,7 +28,7 @@ public class WikiParserMain {
         parser.getCommURLs();
 //        parser.getCommMembers("Committee on the Judiciary");
 
-        Map<String, List<String>> sen = parser.getSenToCommMembs();
+        Map<String, Set<String>> sen = parser.getSenToCommMembs();
         for (String key : sen.keySet()) {
             System.out.println(key + ": " + sen.get(key));
         }

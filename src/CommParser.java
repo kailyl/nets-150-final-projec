@@ -1,15 +1,12 @@
+import java.io.IOException;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class CommParser {
@@ -19,7 +16,7 @@ public class CommParser {
 
     private List<String> allSenators;
     private Map<String, String> commURLs;
-    private Map<String, List<String>> neighborsInComms;
+    private Map<String, Set<String>> neighborsInComms;
 
     /*
      * Constructor that initializes the base URL and loads the document produced from that URL.
@@ -53,6 +50,9 @@ public class CommParser {
             Matcher senMatcher = pattern.matcher(allSenInfo);
             if (senMatcher.find()) {
                 String senName = senMatcher.group(1) + senMatcher.group(2) + senMatcher.group(3);
+                if (senName.equals("Luján, B")) {
+                    senName = "Lujan, B";
+                }
                 this.allSenators.add(senName);
 //                System.out.println(senName);
             }
@@ -84,7 +84,6 @@ public class CommParser {
     }
 
     public List<String> getCommMembers(String commName) {
-        Map<String, List<String>> commAllMembers = new HashMap<String, List<String>>();
         List<String> allMemNames = new ArrayList<String>();
         resetURL(commURLs.get(commName));
 
@@ -108,15 +107,15 @@ public class CommParser {
             if (secMemMatcher.find()) {
                 String secMemName = secMemMatcher.group(1) + secMemMatcher.group(2) + secMemMatcher.group(3);
                 allMemNames.add(secMemName);
-//                System.out.println(secMemName);
+//                `System.out.println(secMemName);
             }
         }
 
         return allMemNames;
     }
 
-    public Map<String, List<String>> getSenToCommMembs() {
-        this.neighborsInComms = new HashMap<String, List<String>>();
+    public Map<String, Set<String>> getSenToCommMembs() {
+        this.neighborsInComms = new HashMap<String, Set<String>>();
         Map<String, List<String>> sensInComms = new HashMap<String, List<String>>();
 
         for (String commName : commURLs.keySet()) {
@@ -124,7 +123,7 @@ public class CommParser {
         }
 
         for (String sen : allSenators) {
-            List<String> currNeighbors = new ArrayList<String>();
+            Set<String> currNeighbors = new HashSet<String>();
 
             for (String commName : commURLs.keySet()) {
                 List<String> sensInComm = sensInComms.get(commName);
@@ -132,13 +131,13 @@ public class CommParser {
                     currNeighbors.addAll(sensInComm);
                 }
             }
-
+            currNeighbors.remove(sen);
             this.neighborsInComms.put(sen, currNeighbors);
         }
-//        for (String key : this.neighborsInComms.keySet()) {
-//            System.out.println(key + ": " + this.neighborsInComms.get(key));
-//        }
-//
+
+        for (String key : this.neighborsInComms.keySet()) {
+            System.out.println(key + ": " + this.neighborsInComms.get(key));
+        }
 
         return this.neighborsInComms;
     }
