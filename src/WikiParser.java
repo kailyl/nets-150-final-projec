@@ -49,13 +49,20 @@ public class WikiParser {
         getAges();
     }
 
-    public Map<String, String> getSenatorsToYears() {
-        return senatorsToYear;
+    public Map<String, Integer> getSenatorsToYears() {
+        Map<String, Integer> yearInt = new HashMap<>();
+        for(String senator : senatorsToYear.keySet()) {
+            yearInt.put(senator, Integer.valueOf(senatorsToYear.get(senator)));
+        }
+        return yearInt;
     }
 
-    public Map<String, List<String>> getYearToSenator() {
-        return yearToSenator;
-    }
+    public Map<Integer, List<String>> getYearToSenator() {
+        Map<Integer, List<String>> yearInt = new HashMap<>();
+        for(String year : yearToSenator.keySet()) {
+            yearInt.put(Integer.valueOf(year), yearToSenator.get(year));
+        }
+        return yearInt;}
 
     public void getAges() {
         String link;
@@ -131,4 +138,3 @@ public class WikiParser {
         }
     }
 }
-
