@@ -2,7 +2,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
-import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -46,19 +45,6 @@ public class WikiParser {
                 currHTML = node.attr("href");
                 senatorsToLink.put(currSenator, "https://en.wikipedia.org/" + currHTML);
             }
-//            if (elem.childNodeSize() >= 2 && elem.childNode(0).hasAttr("data-sort-value")) {
-//                currSenator = elem.childNode(0).attr("data-sort-value");
-//                if (currYear != null) {
-//                    putInHashMaps(currYear, currSenator);
-//                }
-//            }
-//            if (elem.childNodeSize() == 1) {
-//                TextNode n = (TextNode) elem.childNode(0);
-//                if (n.text().matches(".*[0-9].*") && n.text().matches(".*,.*")) {
-//                    currYear = n.text();
-//                    putInHashMaps(currYear, currSenator);
-//                }
-//            }
         }
         getAges();
     }
@@ -80,9 +66,6 @@ public class WikiParser {
         for (String sen : senatorsToLink.keySet()) {
             link = senatorsToLink.get(sen);
             resetURL(link);
-
-//            Element articleElement = this.currentDoc.select("table[class*=infobox vcard]").get(0);
-
             Element senAgeElement = this.currentDoc.selectFirst("span[class*=ForceAgeToShow]");
             String senAgeText = senAgeElement.childNode(0).toString();
             Matcher senAgeMatcher = pattern.matcher(senAgeText);

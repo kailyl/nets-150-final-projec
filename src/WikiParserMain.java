@@ -19,12 +19,9 @@ public class WikiParserMain {
         }
 
         CommParser parser = new CommParser();
-        //Map<String, List<String>> map = parser.getSenToColleagues();
-        //System.out.print(map);
 
         parser.getSenatorList();
         parser.getCommURLs();
-//        parser.getCommMembers("Committee on the Judiciary");
 
         Map<String, Set<String>> sen = parser.getSenToCommMembs();
         for (String key : sen.keySet()) {

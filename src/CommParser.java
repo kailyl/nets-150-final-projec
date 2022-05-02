@@ -54,7 +54,6 @@ public class CommParser {
                     senName = "Lujan, B";
                 }
                 this.allSenators.add(senName);
-//                System.out.println(senName);
             }
         }
         return allSenators;
@@ -69,7 +68,6 @@ public class CommParser {
             String commName = comm.text();
             if (!commURLs.containsKey(commName)) {
                 this.commURLs.put(commName, "https://www.senate.gov" + commURL);
-//                System.out.println(commName + " : " + commURL);
             }
         }
 
