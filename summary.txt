@@ -1,4 +1,4 @@
-Seniority in Congressional Committees
+Age in Congressional Committees
 
 Description:
 Currently the 117th Congress of the United States is made up of around 200 committees and subcommittees. With the power
