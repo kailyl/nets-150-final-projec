@@ -8,9 +8,7 @@ public class WikiParserMain {
         WikiParser parse = new WikiParser();
         parse.initHashMaps();
         Map<String, String> senateToDate = parse.getSenatorsToYears();
-        for (String key : senateToDate.keySet()) {
-            System.out.println(key);
-        }
+
         for (String key : senateToDate.keySet()) {
             System.out.println(key + ": " + senateToDate.get(key));
         }

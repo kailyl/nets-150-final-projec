@@ -1,6 +1,7 @@
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
@@ -9,10 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class WikiParser {
     private String baseURL;
     private Document currentDoc;
+    private Map<String, String> senatorsToLink;
     private Map<String, String> senatorsToYear;
     private Map<String, List<String>> yearToSenator;
 
@@ -22,6 +26,7 @@ public class WikiParser {
             this.currentDoc = Jsoup.connect(this.baseURL).get();
             this.senatorsToYear = new HashMap<>();
             this.yearToSenator = new HashMap<>();
+            this.senatorsToLink = new HashMap<>();
         } catch (IOException e) {
             System.out.println("Could not get the site :(");
         }
@@ -32,23 +37,30 @@ public class WikiParser {
         Elements rows = articleElements.select("tbody");
         Elements senateAttr = rows.select("td");
 
-        String currSenator = null;
-        String currYear = null;
+        String currSenator;
+        String currHTML;
         for (Element elem : senateAttr) {
-            if (elem.childNodeSize() >= 2 && elem.childNode(0).hasAttr("data-sort-value")) {
+            if (elem.childNode(0).hasAttr("data-sort-value")) {
                 currSenator = elem.childNode(0).attr("data-sort-value");
-                if (currYear != null) {
-                    putInHashMaps(currYear, currSenator);
-                }
+                Node node = elem.childNode(0).childNode(0).childNode(0).childNode(0);
+                currHTML = node.attr("href");
+                senatorsToLink.put(currSenator, "https://en.wikipedia.org/" + currHTML);
             }
-            if (elem.childNodeSize() == 1) {
-                TextNode n = (TextNode) elem.childNode(0);
-                if (n.text().matches(".*[0-9].*") && n.text().matches(".*,.*")) {
-                    currYear = n.text();
-                    putInHashMaps(currYear, currSenator);
-                }
-            }
+//            if (elem.childNodeSize() >= 2 && elem.childNode(0).hasAttr("data-sort-value")) {
+//                currSenator = elem.childNode(0).attr("data-sort-value");
+//                if (currYear != null) {
+//                    putInHashMaps(currYear, currSenator);
+//                }
+//            }
+//            if (elem.childNodeSize() == 1) {
+//                TextNode n = (TextNode) elem.childNode(0);
+//                if (n.text().matches(".*[0-9].*") && n.text().matches(".*,.*")) {
+//                    currYear = n.text();
+//                    putInHashMaps(currYear, currSenator);
+//                }
+//            }
         }
+        getAges();
     }
 
     public Map<String, String> getSenatorsToYears() {
@@ -59,8 +71,30 @@ public class WikiParser {
         return yearToSenator;
     }
 
-    private void putInHashMaps(String currYear, String currSenator) {
-        String[] str = currYear.split(" ");
+    public void getAges() {
+        String link;
+        String age;
+
+        Pattern pattern = Pattern.compile("(.*)(;)(\\d+)");
+
+        for (String sen : senatorsToLink.keySet()) {
+            link = senatorsToLink.get(sen);
+            resetURL(link);
+
+//            Element articleElement = this.currentDoc.select("table[class*=infobox vcard]").get(0);
+
+            Element senAgeElement = this.currentDoc.selectFirst("span[class*=ForceAgeToShow]");
+            String senAgeText = senAgeElement.childNode(0).toString();
+            Matcher senAgeMatcher = pattern.matcher(senAgeText);
+            if (senAgeMatcher.find()) {
+                age = senAgeMatcher.group(3);
+                putInHashMaps(age, sen);
+            }
+
+        }
+    }
+
+    private void putInHashMaps(String age, String currSenator) {
         String newName;
         if (currSenator.contains("Jr., ")) {
             currSenator = currSenator.replace("Jr., ", "");
@@ -85,15 +119,15 @@ public class WikiParser {
         if (newName.contains("Harris") || newName.contains("Loeffler")) {
             return;
         }
-        senatorsToYear.put(newName, str[2]);
-        if (yearToSenator.containsKey(str[2])) {
+        senatorsToYear.put(newName, age);
+        if (yearToSenator.containsKey(age)) {
             containsSenator(yearToSenator, newName);
-            yearToSenator.get(str[2]).add(newName);
+            yearToSenator.get(age).add(newName);
         } else {
             containsSenator(yearToSenator, newName);
             List<String> list = new ArrayList<>();
             list.add(newName);
-            yearToSenator.put(str[2], list);
+            yearToSenator.put(age, list);
         }
     }
 
@@ -102,6 +136,15 @@ public class WikiParser {
             if (map.get(key).contains(senator)) {
                 map.get(key).remove(senator);
             }
+        }
+    }
+
+    private void resetURL(String newURL) {
+        this.baseURL = newURL;
+        try {
+            this.currentDoc = Jsoup.connect(this.baseURL).get();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
