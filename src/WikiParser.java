@@ -80,7 +80,6 @@ public class WikiParser {
                 age = senAgeMatcher.group(3);
                 putInHashMaps(age, sen);
             }
-
         }
     }
 
