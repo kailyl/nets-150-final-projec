@@ -54,7 +54,6 @@ public class CommParser {
                     senName = "Lujan, B";
                 }
                 this.allSenators.add(senName);
-//                System.out.println(senName);
             }
         }
         return allSenators;
@@ -69,7 +68,6 @@ public class CommParser {
             String commName = comm.text();
             if (!commURLs.containsKey(commName)) {
                 this.commURLs.put(commName, "https://www.senate.gov" + commURL);
-//                System.out.println(commName + " : " + commURL);
             }
         }
 
@@ -96,7 +94,6 @@ public class CommParser {
             if (firstMemMatcher.find()) {
                 String firstMemName = firstMemMatcher.group(1) + firstMemMatcher.group(2) + firstMemMatcher.group(3);
                 allMemNames.add(firstMemName);
-//                System.out.println(firstMemName);
             }
         }
 
@@ -107,7 +104,6 @@ public class CommParser {
             if (secMemMatcher.find()) {
                 String secMemName = secMemMatcher.group(1) + secMemMatcher.group(2) + secMemMatcher.group(3);
                 allMemNames.add(secMemName);
-//                `System.out.println(secMemName);
             }
         }
 
@@ -133,10 +129,6 @@ public class CommParser {
             }
             currNeighbors.remove(sen);
             this.neighborsInComms.put(sen, currNeighbors);
-        }
-
-        for (String key : this.neighborsInComms.keySet()) {
-            System.out.println(key + ": " + this.neighborsInComms.get(key));
         }
 
         return this.neighborsInComms;
