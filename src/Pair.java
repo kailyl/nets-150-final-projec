@@ -1,3 +1,5 @@
+
+// Helper class used in the CongressMemberAnalysis class to define the edges of the graph
 public class Pair<K, V> {
     K key;
     V value;

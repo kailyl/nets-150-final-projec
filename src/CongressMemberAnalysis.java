@@ -1,5 +1,6 @@
 import java.util.*;
 
+//Class to calculate the clustering coefficients of Congress members based on shared committees/subcommittees
 public class CongressMemberAnalysis {
 
     private Map<Integer, List<String>> ageMap;
@@ -125,9 +126,7 @@ public class CongressMemberAnalysis {
         Set<String> similar = new HashSet<>();
         for (Integer age : ageMap.keySet()) {
             if (age >= lowerBound && age <= upperBound) {
-                for (String mem : ageMap.get(age)) {
-                    similar.add(mem);
-                }
+                similar.addAll(ageMap.get(age));
             }
         }
         return similar;

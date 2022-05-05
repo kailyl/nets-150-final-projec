@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//Class to get and process the age data from a wikipedia page
 public class WikiParser {
     private String baseURL;
     private Document currentDoc;

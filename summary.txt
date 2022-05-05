@@ -2,7 +2,7 @@ Age in Congressional Committees
 
 Description:
 Currently the 117th Congress of the United States is made up of around 200 committees and subcommittees. With the power
-to create the laws in the country, members of Congree unquestionably play an important role in how important
+to create the laws in the country, members of Congress unquestionably play an important role in how important
 issues in today's society are addressed. Thus, we wanted to analyze the diversity, or lack there of, within each
 committee with regards to age. More formally, we used a combination of both Implementation and Empirical Analysis
 to answer the question of whether or not members of the same committee of congress are more likely to fall
@@ -10,4 +10,4 @@ within the same generational age range. Our project incorporates both Graphs and
 Information Networks, and the work was distributed between the members as follows: Kaily Liu was in charge of pulling
 and processing the age data from the Wikepedia page (linked in the report). Anna V was in charge of pulling and processing
 the committee data from the US senate page (also linked in the report). Anna Z took on the task of writing the code for the
-graph analysis. We all jointly worker on the project report. 
+graph analysis. We all jointly worker on the project report.

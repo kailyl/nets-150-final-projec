@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-
+//Class to find the committees that each member belongs to
 public class CommParser {
 
     private String currentURL;
