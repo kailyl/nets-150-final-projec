@@ -6,14 +6,17 @@ of senators being members of the Boomer generation. We are interested in going o
 might play a specific role in the kinds of legislation being introduced within the committees. To do so, we will confirm whether or not a cluster of 
 committees tend to have a significant proportion of senators from one particular generation through an Empirical Analysis; if they do, then it is
 reasonable to assume that the actions of Senate committees may not best reflect the needs of American citizens, since research shows that people of the 
-same age are likely to have similar values. Thus, a skewed age distribution across the committees can reveal the Senate’s disparate approach to addressing present-day issues.
+same age are likely to have similar values. Thus, a skewed age distribution across the committees can reveal the Senate’s disparate approach to addressing
+present-day issues.
 
-Our project implements Graphs, Graph Algorithms, and Document Search to test our hypothesis: U.S. Senators of the 117th Congress that are from the same 
+Our project implements Graphs, Graph Algorithms, and Document Search to test our hypothesis: U.S. Senators of the 117th Congress that are from the same
 generation have a greater likelihood of being elected into the same committees. 
 
 Work was distributed as follows: 
-1) Kaily Liu worked on pulling and processing senator and age data from the Wikipedia page. In the project report, she worked on the introduction, hypothesis, methods, and conclusions. 
-2) Anna Vazhaeparambil worked on parsing the senate website to process committee data. In the project report, she worked on the introduction, graphs, conclusion, and results. 
+1) Kaily Liu worked on pulling and processing senator and age data from the Wikipedia page. In the project report, she worked on the introduction,
+hypothesis, methods, and conclusions. 
+2) Anna Vazhaeparambil worked on parsing the senate website to process committee data. In the project report, she worked on the introduction, graphs,
+conclusion, and results. 
 3) Anna Zhou worked on graph analysis. In the project report, she worked on the results and summary. 
 
 Note that all members of our group worked on the analysis of our results and editing our project report. 
