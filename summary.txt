@@ -17,6 +17,6 @@ Work was distributed as follows:
 hypothesis, methods, and conclusions. 
 2) Anna Vazhaeparambil worked on parsing the senate website to process committee data. In the project report, she worked on the introduction, graphs,
 conclusion, and results. 
-3) Anna Zhou worked on graph analysis. In the project report, she worked on the results and summary. 
+3) Anna Zhou worked on the graph analysis and algorithms. In the project report, she worked on the results and summary. 
 
 Note that all members of our group worked on the analysis of our results and editing our project report. 
