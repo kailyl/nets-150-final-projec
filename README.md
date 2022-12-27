@@ -1,4 +1,4 @@
-## nets-150-final-project 
+## Nets 150 Final Project 
 
 We hope to do an Empirical Analysis in order to answer the following question: do U.S. senators from the 117th Congress have a greater likelihood of sharing a generation if they are members of the same sub-committee? We plan to do web-scraping on the [Senate Committee Assignments](https://www.senate.gov/general/committee_assignments/assignments.htm) page, [this Wikipedia page about senators](https://en.wikipedia.org/wiki/List_of_United_States_senators_in_the_117th_Congress), and each senator's respective page in order to gather information about which senators belong to which sub-committees and what their respective seniority is. 
 
